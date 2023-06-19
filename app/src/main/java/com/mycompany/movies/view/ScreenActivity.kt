@@ -20,7 +20,7 @@ class ScreenActivity : AppCompatActivity() {
 
     private fun handlerSplashScreen() {
         android.os.Handler(Looper.getMainLooper()).postDelayed({
-            startActivity(Intent(applicationContext,HomeActivity::class.java))
+            startActivity(Intent(applicationContext,LoginActivity::class.java))
             finish()
         }, 300)
     }

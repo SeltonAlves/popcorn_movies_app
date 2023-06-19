@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">movies</string>
+    <string name="name">Pipoca Filmes</string>
+    <string name="email">E-mail</string>
+    <string name="password">Senha</string>
+    <string name="Forget_Password">Esqueceu a Senha?</string>
+    <string name="login">Login</string>
+    <string name="Not_registered_yet">Ainda não se registou? <b>CRIAR UMA CONTA</b></string>
 </resources>
