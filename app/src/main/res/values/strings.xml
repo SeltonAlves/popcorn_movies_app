@@ -6,4 +6,9 @@
     <string name="Forget_Password">Esqueceu a Senha?</string>
     <string name="login">Login</string>
     <string name="Not_registered_yet">Ainda não se registou? <b>CRIAR UMA CONTA</b></string>
+    <string name="inconsistent_parameters">parâmetros inconsistentes</string>
+    <string name="password_great">senha maior que 6 digitos</string>
+    <string name="email_invalid">Email invalido</string>
+    <string name="Email_registered">Email já cadastrado</string>
+    <string name="error_generic">Entre em Contato com os Desenvolvedores.</string>
 </resources>
