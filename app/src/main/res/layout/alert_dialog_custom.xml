@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+     <androidx.appcompat.widget.AppCompatImageView
+         android:id="@+id/image_email"
+         android:layout_width="140dp"
+         android:layout_height="140dp"
+         android:layout_marginTop="10dp"
+         app:layout_constraintStart_toStartOf="parent"
+         app:layout_constraintTop_toTopOf="parent"
+         app:layout_constraintEnd_toEndOf="parent"
+         app:srcCompat="@drawable/email" />
+
+     <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/image_close"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        app:srcCompat="@drawable/close"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_margin="20dp"/>
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/text_check_email"
+        android:textColor="@color/black"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/image_email"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="20dp"
+        android:text="Cheque Sua Caixa De Email"
+        android:fontFamily="@font/work_sans_semibold"
+        android:textSize="20sp"/>
+
+     <androidx.appcompat.widget.AppCompatTextView
+         android:id="@+id/text_information"
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+         android:layout_marginTop="20dp"
+         android:fontFamily="@font/work_sans"
+         android:gravity="center"
+         android:text="Enviamos um Mensagem para o Email informado, acesse-o e terá a possibilidade de alterar sua senha."
+         android:textColor="@color/black"
+         android:textSize="16sp"
+         app:layout_constraintEnd_toEndOf="parent"
+         app:layout_constraintStart_toStartOf="parent"
+         app:layout_constraintTop_toBottomOf="@id/text_check_email" />
+</androidx.constraintlayout.widget.ConstraintLayout>

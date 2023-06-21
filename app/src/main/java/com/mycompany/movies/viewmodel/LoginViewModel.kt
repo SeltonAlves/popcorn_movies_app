@@ -9,19 +9,19 @@ import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException
 import com.google.firebase.auth.FirebaseAuthUserCollisionException
 import com.google.firebase.auth.FirebaseAuthWeakPasswordException
 import com.mycompany.movies.R
-import com.mycompany.movies.model.ValidationLoginModel
+import com.mycompany.movies.model.ValidationModel
 
 class LoginViewModel(application: Application) : AndroidViewModel(application) {
 
     private val auth = FirebaseAuth.getInstance()
-    private val _response = MutableLiveData<ValidationLoginModel>()
-    val response: LiveData<ValidationLoginModel> = _response
+    private val _response = MutableLiveData<ValidationModel>()
+    val response: LiveData<ValidationModel> = _response
 
 
     fun loginUser(email: String, password: String) {
         if (email != "" && password != "") {
             auth.signInWithEmailAndPassword(email, password).addOnSuccessListener {
-                _response.value = ValidationLoginModel()
+                _response.value = ValidationModel()
             }.addOnFailureListener {
                 val message = when(it){
                     is FirebaseAuthWeakPasswordException -> R.string.password_great.toString()
@@ -29,10 +29,10 @@ class LoginViewModel(application: Application) : AndroidViewModel(application) {
                     is FirebaseAuthUserCollisionException -> R.string.Email_registered.toString()
                     else -> R.string.error_generic.toString()
                 }
-                _response.value = ValidationLoginModel(message)
+                _response.value = ValidationModel(message)
             }
         } else {
-            _response.value = ValidationLoginModel(R.string.inconsistent_parameters.toString())
+            _response.value = ValidationModel(R.string.inconsistent_parameters.toString())
         }
     }
 

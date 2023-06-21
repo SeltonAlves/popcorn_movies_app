@@ -1,6 +1,6 @@
 package com.mycompany.movies.model
 
-class ValidationLoginModel(message:String = "") {
+class ValidationModel(message:String = "") {
 
     private var status: Boolean = true
     private var validationMessage:String = ""
