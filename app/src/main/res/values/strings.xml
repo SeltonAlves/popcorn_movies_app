@@ -13,4 +13,8 @@
     <string name="error_generic">Entre em Contato com os Desenvolvedores.</string>
     <string name="forgot_password">Esqueceu a Senha?</string>
     <string name="text_information_dialog_email">Não se preocupe, isso acontece com o melhor de nós.\n Insira seu Email logo abaixo.</string>
+    <string name="create_account">Criar Conta</string>
+    <string name="confirm_password">Confirme a Senha</string>
+    <string name="text_information_check_email">Cheque Sua Caixa De Email</string>
+    <string name="text_information_about_sending_email">Enviamos um Mensagem para o Email informado, acesse-o e terá a possibilidade de alterar sua senha.</string>
 </resources>

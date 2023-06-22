@@ -46,7 +46,6 @@ class LoginActivity : AppCompatActivity() {
         }
         binding.createAccount.setOnClickListener {
             startActivity(Intent(this,CreateAccountActivity::class.java))
-            finish()
         }
     }
 

@@ -85,7 +85,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="60dp"
-        android:backgroundTint="#7A6575AD"
+        android:backgroundTint="@color/button_main"
         android:padding="18dp"
         app:layout_constraintEnd_toEndOf="@id/edit_password"
         app:layout_constraintStart_toStartOf="@id/edit_password"

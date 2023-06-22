@@ -4,6 +4,7 @@ import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import com.google.firebase.FirebaseNetworkException
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException
 import com.google.firebase.auth.FirebaseAuthUserCollisionException
@@ -24,12 +25,13 @@ class LoginViewModel(application: Application) : AndroidViewModel(application) {
                 _response.value = ValidationModel()
             }.addOnFailureListener {
                 val message = when(it){
-                    is FirebaseAuthWeakPasswordException -> R.string.password_great.toString()
-                    is FirebaseAuthInvalidCredentialsException -> R.string.email_invalid.toString()
-                    is FirebaseAuthUserCollisionException -> R.string.Email_registered.toString()
-                    else -> R.string.error_generic.toString()
+                    is FirebaseAuthWeakPasswordException -> R.string.password_great
+                    is FirebaseAuthInvalidCredentialsException -> R.string.email_invalid
+                    is FirebaseNetworkException -> "Erro de Conexão verifique se está ligado o WIFI ou Dados Móveis"
+                    is FirebaseAuthUserCollisionException -> R.string.Email_registered
+                    else -> R.string.error_generic
                 }
-                _response.value = ValidationModel(message)
+                _response.value = ValidationModel(message.toString())
             }
         } else {
             _response.value = ValidationModel(R.string.inconsistent_parameters.toString())

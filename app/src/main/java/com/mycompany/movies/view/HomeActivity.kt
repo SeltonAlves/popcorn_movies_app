@@ -2,7 +2,6 @@ package com.mycompany.movies.view
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import com.mycompany.movies.R
 import com.mycompany.movies.databinding.ActivityHomeBinding
 
 class HomeActivity : AppCompatActivity() {
