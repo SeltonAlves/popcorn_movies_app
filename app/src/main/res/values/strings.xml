@@ -11,4 +11,6 @@
     <string name="email_invalid">Email invalido</string>
     <string name="Email_registered">Email já cadastrado</string>
     <string name="error_generic">Entre em Contato com os Desenvolvedores.</string>
+    <string name="forgot_password">Esqueceu a Senha?</string>
+    <string name="text_information_dialog_email">Não se preocupe, isso acontece com o melhor de nós.\n Insira seu Email logo abaixo.</string>
 </resources>

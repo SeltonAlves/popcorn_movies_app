@@ -13,7 +13,6 @@ import com.mycompany.movies.viewmodel.ForgotPasswordViewModel
 class ForgotPasswordActivity : AppCompatActivity() {
     private lateinit var binding: ActivityForgotPasswordBinding
     private lateinit var viewModel: ForgotPasswordViewModel
-    private lateinit var alert: AlertForgotPassword
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityForgotPasswordBinding.inflate(layoutInflater)
@@ -29,6 +28,10 @@ class ForgotPasswordActivity : AppCompatActivity() {
         binding.button.setOnClickListener {
             handleForgot()
         }
+        binding.imageArrow.setOnClickListener {
+            startActivity(Intent(this,LoginActivity::class.java))
+            finish()
+        }
     }
 
     private fun handleForgot() {
@@ -40,7 +43,6 @@ class ForgotPasswordActivity : AppCompatActivity() {
         viewModel.response.observe(this) {
             if (it.status()) {
                 dialogCustom()
-                startActivity(Intent(this,LoginActivity::class.java))
             } else {
                 binding.editEmail.setText("")
                 Toast.makeText(this, it.message(), Toast.LENGTH_SHORT).show()
@@ -50,8 +52,12 @@ class ForgotPasswordActivity : AppCompatActivity() {
 
     @SuppressLint("ResourceType", "UseCompatLoadingForDrawables", "PrivateResource")
     private fun dialogCustom() {
-        val alert = AlertForgotPassword(this)
+       val alert = AlertForgotPassword(this)
         alert.setCancelable(false)
+        alert.setOnClose {
+            startActivity(Intent(this,LoginActivity::class.java))
+            finish()
+        }
         alert.show()
     }
 
