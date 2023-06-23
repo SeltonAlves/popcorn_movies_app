@@ -25,13 +25,13 @@ class LoginViewModel(application: Application) : AndroidViewModel(application) {
                 _response.value = ValidationModel()
             }.addOnFailureListener {
                 val message = when(it){
-                    is FirebaseAuthWeakPasswordException -> R.string.password_great
-                    is FirebaseAuthInvalidCredentialsException -> R.string.email_invalid
+                    is FirebaseAuthWeakPasswordException -> "senha maior que 6 digitos"
+                    is FirebaseAuthInvalidCredentialsException -> "Email invalido ou senha invalida."
                     is FirebaseNetworkException -> "Erro de Conexão verifique se está ligado o WIFI ou Dados Móveis"
-                    is FirebaseAuthUserCollisionException -> R.string.Email_registered
-                    else -> R.string.error_generic
+                    is FirebaseAuthUserCollisionException -> "Email já cadastrado."
+                    else -> "Entre em Contato com os Desenvolvedores."
                 }
-                _response.value = ValidationModel(message.toString())
+                _response.value = ValidationModel(message)
             }
         } else {
             _response.value = ValidationModel(R.string.inconsistent_parameters.toString())

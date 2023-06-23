@@ -26,14 +26,14 @@ class LoginActivity : AppCompatActivity() {
         observe()
     }
 
-    /*override fun onStart() {
+    override fun onStart() {
         super.onStart()
         val user = FirebaseAuth.getInstance().currentUser
         if (user != null){
             startActivity(Intent(this, HomeActivity::class.java))
             finish()
         }
-    }*/
+    }
 
 
     private fun handleClick() {
