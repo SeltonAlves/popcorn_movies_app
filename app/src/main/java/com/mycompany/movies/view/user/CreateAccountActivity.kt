@@ -7,7 +7,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import com.mycompany.movies.databinding.ActivityCreateAccountBinding
 import com.mycompany.movies.view.HomeActivity
-import com.mycompany.movies.viewmodel.CreateAccountViewModel
+import com.mycompany.movies.viewmodel.user.CreateAccountViewModel
 
 class CreateAccountActivity : AppCompatActivity() {
     private lateinit var binding: ActivityCreateAccountBinding

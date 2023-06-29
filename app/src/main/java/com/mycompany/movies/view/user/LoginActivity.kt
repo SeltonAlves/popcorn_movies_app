@@ -2,16 +2,13 @@ package com.mycompany.movies.view.user
 
 import android.content.Intent
 import android.os.Bundle
-import android.view.View.*
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
-import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.ktx.Firebase
 import com.mycompany.movies.databinding.ActivityLoginBinding
 import com.mycompany.movies.view.HomeActivity
-import com.mycompany.movies.viewmodel.LoginViewModel
+import com.mycompany.movies.viewmodel.user.LoginViewModel
 
 class LoginActivity : AppCompatActivity() {
     private lateinit var binding: ActivityLoginBinding

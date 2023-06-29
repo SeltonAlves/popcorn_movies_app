@@ -1,4 +1,4 @@
-package com.mycompany.movies.viewmodel
+package com.mycompany.movies.viewmodel.user
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel

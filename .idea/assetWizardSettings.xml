@@ -3,6 +3,11 @@
   <component name="WizardSettings">
     <option name="children">
       <map>
+        <entry key="imageWizard">
+          <value>
+            <PersistentState />
+          </value>
+        </entry>
         <entry key="vectorWizard">
           <value>
             <PersistentState>
@@ -29,8 +34,8 @@
                         <option name="values">
                           <map>
                             <entry key="assetSourceType" value="FILE" />
-                            <entry key="outputName" value="ic_user" />
-                            <entry key="sourceFile" value="$USER_HOME$/Downloads/lucide_useruser.svg" />
+                            <entry key="outputName" value="movie_1test_adobe_express" />
+                            <entry key="sourceFile" value="$USER_HOME$/Downloads/movie-1test_adobe_express.svg" />
                           </map>
                         </option>
                       </PersistentState>

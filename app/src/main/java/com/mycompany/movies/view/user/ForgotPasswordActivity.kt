@@ -8,7 +8,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import com.mycompany.movies.databinding.ActivityForgotPasswordBinding
 import com.mycompany.movies.view.custom.AlertForgotPassword
-import com.mycompany.movies.viewmodel.ForgotPasswordViewModel
+import com.mycompany.movies.viewmodel.user.ForgotPasswordViewModel
 
 class ForgotPasswordActivity : AppCompatActivity() {
     private lateinit var binding: ActivityForgotPasswordBinding
