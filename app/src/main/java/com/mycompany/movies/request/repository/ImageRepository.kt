@@ -13,9 +13,9 @@ import java.io.IOException
 class ImageRepository {
     private val remote = RetrofitImage.getService(ImageServices::class.java)
 
-    suspend fun getImgCatalog(list: List<Result>): List<Pair<String,Bitmap?>> {
+    suspend fun getImgCatalog(list: List<Result>): List<Bitmap?> {
         return withContext(Dispatchers.IO) {
-            val listMovies = mutableListOf<Pair<String,Bitmap?>>()
+            val listMovies = mutableListOf<Bitmap?>()
             try {
                 for (movie in list) {
                     val response = remote.getImage(movie.poster_path).awaitResponse()
@@ -24,16 +24,16 @@ class ImageRepository {
                         val inputStream = responseBody?.byteStream()
                         if (inputStream != null) {
                             val bitmap = BitmapFactory.decodeStream(inputStream)
-                            listMovies.add(Pair(movie.title, bitmap))
+                            listMovies.add(bitmap)
                         } else {
-                            listMovies.add(Pair(movie.title, null))
+                            listMovies.add(null)
                         }
                     } else {
-                        listMovies.add(Pair(movie.title, null))
+                        listMovies.add(null)
                     }
                 }
             }catch (e : IOException){
-                for (movie in list) { listMovies.add(Pair(movie.title, null)) }
+                for (movie in list) { listMovies.add(null) }
                 }
             return@withContext listMovies
         }

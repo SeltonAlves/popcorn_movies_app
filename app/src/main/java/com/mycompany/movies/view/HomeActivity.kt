@@ -15,7 +15,19 @@ class HomeActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityHomeBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        binding.editTextSearch.isClickable = true
+        binding.editTextSearch.isFocusable = false
+
+        handleClick()
         initNavigation()
+    }
+
+    private fun handleClick() {
+        binding.editTextSearch.setOnClickListener {
+            binding.editTextSearch.isFocusableInTouchMode = true
+            binding.editTextSearch.isFocusable = true
+        }
     }
 
     private fun initNavigation() {

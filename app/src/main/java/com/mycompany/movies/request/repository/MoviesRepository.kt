@@ -25,9 +25,9 @@ import java.net.HttpURLConnection
 class MoviesRepository {
 
     private val remote = Retrofit.getService(MoviesServices::class.java)
-    private var movieList= listOf<Pair<String, Bitmap?>>()
+    private var movieList= listOf<Bitmap?>()
     private val repository = ImageRepository()
-    fun getMoviesPopular(listener: ApiResponse<List<Pair<String,Bitmap?>>>) {
+    fun getMoviesPopular(listener: ApiResponse<List<Bitmap?>>) {
         val call = remote.getPopularMovies()
         call.enqueue(object : Callback<Movies> {
             override fun onResponse(call: Call<Movies>, response: Response<Movies>) {
@@ -35,7 +35,7 @@ class MoviesRepository {
                     if (response.code() == HttpURLConnection.HTTP_OK) {
                         response.body()?.let { movies ->
 
-                            val first10Results = movies.results.take(9)
+                            val first10Results = movies.results.take(10)
                             CoroutineScope(Dispatchers.Main).launch {
                                 movieList = repository.getImgCatalog(first10Results)
                                 if (movieList.isNotEmpty()){

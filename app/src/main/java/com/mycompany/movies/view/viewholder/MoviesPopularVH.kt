@@ -1,12 +1,25 @@
 package com.mycompany.movies.view.viewholder
 
+import android.graphics.Bitmap
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
+import com.mycompany.movies.R
 import com.mycompany.movies.databinding.RowItemMoviesPopularBinding
-import com.mycompany.movies.model.Result
 
-class MoviesPopularVH(private val item : RowItemMoviesPopularBinding) : RecyclerView.ViewHolder(item.root) {
-    fun bind(result: Result) {
-
+class MoviesPopularVH(private val binding: RowItemMoviesPopularBinding) :
+    RecyclerView.ViewHolder(binding.root) {
+    fun bind(item: Bitmap?, position: Int) {
+        if (item != null) {
+            binding.imageMovies.setImageBitmap(item)
+            binding.textPosition.text = position.toString()
+        } else {
+            binding.imageMovies.setImageDrawable(
+                ContextCompat.getDrawable(
+                    binding.root.context,
+                    R.drawable.image_not_available
+                )
+            )
+        }
     }
 
 }
