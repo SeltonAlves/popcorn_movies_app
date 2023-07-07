@@ -4,8 +4,19 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
+    android:background="@color/gray_main"
     tools:context=".view.fragment.HomeFragment">
 
+    <androidx.appcompat.widget.AppCompatTextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Filmes Populares:"
+        android:textColor="@color/white"
+        android:textSize="18sp"
+        android:textStyle="italic"
+        android:padding="8dp"
+        android:fontFamily="@font/montserrat_semibold"
+        />
 <androidx.recyclerview.widget.RecyclerView
     android:id="@+id/recycler_popular"
     android:layout_width="match_parent"

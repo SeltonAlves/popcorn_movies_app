@@ -5,16 +5,12 @@ import android.graphics.Bitmap
 import com.google.gson.Gson
 import com.mycompany.movies.model.ErrorResponse
 import com.mycompany.movies.model.Movies
-import com.mycompany.movies.model.Result
 import com.mycompany.movies.request.Retrofit
 import com.mycompany.movies.request.service.ApiResponse
 import com.mycompany.movies.request.service.MoviesServices
 import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Deferred
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.runBlocking
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response

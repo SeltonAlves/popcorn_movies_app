@@ -1,9 +1,7 @@
 package com.mycompany.movies.view.viewholder
 
 import android.graphics.Bitmap
-import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
-import com.mycompany.movies.R
 import com.mycompany.movies.databinding.RowItemMoviesPopularBinding
 
 class MoviesPopularVH(private val binding: RowItemMoviesPopularBinding) :
@@ -13,13 +11,16 @@ class MoviesPopularVH(private val binding: RowItemMoviesPopularBinding) :
             binding.imageMovies.setImageBitmap(item)
             binding.textPosition.text = position.toString()
         } else {
-            binding.imageMovies.setImageDrawable(
-                ContextCompat.getDrawable(
-                    binding.root.context,
-                    R.drawable.image_not_available
-                )
-            )
+            bindShimmer()
         }
     }
 
+    fun bindShimmer() {
+        binding.imageMovies.setImageDrawable(null)
+        binding.textPosition.text = ""
+    }
+
+    fun enable() {
+        binding.shimmerFrame.hideShimmer()
+    }
 }

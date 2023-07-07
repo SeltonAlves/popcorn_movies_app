@@ -2,48 +2,56 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:background="@color/gray_main"
     android:layout_width="150dp"
-    android:layout_height="250dp">
+    android:layout_height="250dp"
+    android:background="@color/gray_main"
+    >
+
+    <com.facebook.shimmer.ShimmerFrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/shimmer_frame"
+        app:shimmer_duration="1000"
+        app:shimmer_repeat_delay="500">
 
 
-    <androidx.cardview.widget.CardView
-        android:id="@+id/card"
-        android:layout_width="144dp"
-        android:layout_height="210dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="6dp"
-        app:cardCornerRadius="20sp">
+        <androidx.cardview.widget.CardView
+            android:id="@+id/card"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginTop="6dp"
+            android:layout_width="144dp"
+            android:layout_height="210dp"
+            app:cardCornerRadius="20sp">
 
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-            <ImageView
-                android:id="@+id/image_movies"
+            <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:importantForAccessibility="no"
-                android:scaleType="centerCrop"/>
-        </RelativeLayout>
-    </androidx.cardview.widget.CardView>
+                android:layout_height="match_parent">
+                <ImageView
+                    android:id="@+id/image_movies"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:importantForAccessibility="no"
+                    android:scaleType="centerCrop"/>
 
-    <TextView
-        android:id="@+id/text_position"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignStart="@id/card"
-        android:layout_alignBottom="@id/card"
-        android:fontFamily="@font/montserrat_semibold"
-        android:text="0"
-        android:textSize="90sp"
-        android:shadowColor="@color/button_native"
-        android:shadowDx="1"
-        android:shadowDy="2.8"
-        android:shadowRadius="0.5"
-        android:translationY="50dp"
-        android:translationZ="10dp"
-        android:textColor="@color/gray_main"
-        tools:ignore="NotSibling,VisualLintBounds"
-        />
+            </RelativeLayout>
+        </androidx.cardview.widget.CardView>
+        <TextView
+            android:id="@+id/text_position"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="9dp"
+            android:fontFamily="@font/montserrat_semibold"
+            android:shadowColor="@color/button_native"
+            android:shadowDx="4"
+            android:shadowDy="4"
+            android:shadowRadius="2"
+            android:text="1"
+            android:textColor="@color/gray_main"
+            android:textSize="90sp"
+            android:translationY="120dp"
+            android:translationZ="100dp"
+            tools:ignore="NotSibling,VisualLintBounds" />
+    </com.facebook.shimmer.ShimmerFrameLayout>
 
 </RelativeLayout>

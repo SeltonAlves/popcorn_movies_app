@@ -80,7 +80,7 @@
         android:layout_height="wrap_content"
         app:labelVisibilityMode="labeled"
         app:menu="@menu/navigation_bottom"
-        app:backgroundTint="@color/gray_main"
+         android:background="@drawable/border_navigation_bottom"
         app:itemActiveIndicatorStyle="@style/ItemActiveNavigation"
         app:itemTextColor="@drawable/selector_navigation_bottom"
         app:itemIconTint="@drawable/selector_navigation_bottom"

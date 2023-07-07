@@ -1,6 +1,5 @@
 package com.mycompany.movies.view.fragment
 
-import android.graphics.Bitmap
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -17,6 +16,7 @@ class HomeFragment : Fragment() {
     private lateinit var binding: FragmentHomeBinding
     private val adapter = MoviesPopularAdapter()
     private val viewModel: HomeFragmentViewModel by viewModels()
+    private var isDataLoaded = false
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -34,10 +34,18 @@ class HomeFragment : Fragment() {
     }
 
     private fun observe() {
-        viewModel.list.observe(viewLifecycleOwner) { movies ->
-            if (movies.size == 10) {
-                adapter.setItem(movies)
+        viewModel.isLoading.observe(viewLifecycleOwner) { loading ->
+            if (loading) {
+                adapter.startShimmerAnimation()
                 recycler()
+            }else{
+                adapter.stopShimmerAnimation()
+            }
+        }
+
+        viewModel.list.observe(viewLifecycleOwner) { movies ->
+            if (movies.isNotEmpty()) {
+                adapter.setItem(movies)
             } else {
                 viewModel.error.observe(viewLifecycleOwner) { message ->
                     Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
@@ -50,7 +58,9 @@ class HomeFragment : Fragment() {
         binding.recyclerPopular.layoutManager =
             LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
         binding.recyclerPopular.adapter = adapter
- }
+
+
+    }
 
 
 }
