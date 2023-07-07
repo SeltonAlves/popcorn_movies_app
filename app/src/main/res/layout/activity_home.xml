@@ -80,11 +80,13 @@
         android:layout_height="wrap_content"
         app:labelVisibilityMode="labeled"
         app:menu="@menu/navigation_bottom"
-        app:backgroundTint="@color/gray_main"
+         android:background="@drawable/border_navigation_bottom"
         app:itemActiveIndicatorStyle="@style/ItemActiveNavigation"
         app:itemTextColor="@drawable/selector_navigation_bottom"
         app:itemIconTint="@drawable/selector_navigation_bottom"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         tools:ignore="VisualLintBottomNav" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

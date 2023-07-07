@@ -4,17 +4,14 @@ package com.mycompany.movies.request.repository
 import android.graphics.Bitmap
 import com.google.gson.Gson
 import com.mycompany.movies.model.ErrorResponse
+import com.mycompany.movies.model.FuturesMovies
 import com.mycompany.movies.model.Movies
-import com.mycompany.movies.model.Result
 import com.mycompany.movies.request.Retrofit
 import com.mycompany.movies.request.service.ApiResponse
 import com.mycompany.movies.request.service.MoviesServices
 import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Deferred
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.runBlocking
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -25,8 +22,8 @@ import java.net.HttpURLConnection
 class MoviesRepository {
 
     private val remote = Retrofit.getService(MoviesServices::class.java)
-    private var movieList= listOf<Bitmap?>()
-    private val repository = ImageRepository()
+
+    private val repositoryImage = ImageRepository()
     fun getMoviesPopular(listener: ApiResponse<List<Bitmap?>>) {
         val call = remote.getPopularMovies()
         call.enqueue(object : Callback<Movies> {
@@ -37,7 +34,7 @@ class MoviesRepository {
 
                             val first10Results = movies.results.take(10)
                             CoroutineScope(Dispatchers.Main).launch {
-                                movieList = repository.getImgCatalog(first10Results)
+                                val movieList = repositoryImage.getImgCatalog(first10Results)
                                 if (movieList.isNotEmpty()){
                                     listener.success(movieList)
                                 }else{
@@ -65,5 +62,35 @@ class MoviesRepository {
 
         })
 
+    }
+
+
+    fun getCurrentlyInMovies(listener: ApiResponse<List<Pair<String, Bitmap?>>>) {
+        val call = remote.getCurrentlyInMovies()
+        call.enqueue(object : Callback<FuturesMovies> {
+            override fun onResponse(call: Call<FuturesMovies>, response: Response<FuturesMovies>) {
+                if (response.isSuccessful) {
+                    if (response.code() == HttpURLConnection.HTTP_OK) {
+                        response.body()?.let {
+                            CoroutineScope(Dispatchers.Main).launch {
+                                val moviesFutures = repositoryImage.getCurrentlyInMovies(it.results)
+                                if (moviesFutures.isNotEmpty()) {
+                                    listener.success(moviesFutures)
+                                } else {
+                                    listener.failure("erro")
+                                }
+                            }
+                        }
+                    } else {
+                        listener.failure("sei lá ")
+                    }
+                }
+            }
+
+            override fun onFailure(call: Call<FuturesMovies>, t: Throwable) {
+                listener.failure("errooo lindo ")
+            }
+
+        })
     }
 }

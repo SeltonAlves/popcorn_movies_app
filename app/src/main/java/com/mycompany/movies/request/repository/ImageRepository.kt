@@ -32,10 +32,35 @@ class ImageRepository {
                         listMovies.add(null)
                     }
                 }
-            }catch (e : IOException){
-                for (movie in list) { listMovies.add(null) }
+            } catch (e: IOException) {
+                for (movie in list) {
+                    listMovies.add(null)
                 }
+            }
             return@withContext listMovies
         }
+    }
+
+    suspend fun getCurrentlyInMovies(list: List<Result>): List<Pair<String, Bitmap?>> {
+        return withContext(Dispatchers.IO) {
+            val movies: MutableList<Pair<String, Bitmap?>> = mutableListOf()
+            for (results in list) {
+                val response = remote.getImage(results.poster_path).awaitResponse()
+                if (response.isSuccessful) {
+                    val body = response.body()
+                    val input = body?.byteStream()
+                    if (input != null) {
+                        val bitmap = BitmapFactory.decodeStream(input)
+                        movies.add(Pair(results.title, bitmap))
+                    }else{
+                        movies.add(Pair(results.title, null))
+                    }
+                }else{
+                    movies.add(Pair(results.title, null))
+                }
+            }
+           return@withContext movies
         }
     }
+
+}

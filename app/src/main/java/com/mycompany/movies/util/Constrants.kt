@@ -7,6 +7,7 @@ class Constrants private constructor(){
         const val POPULAR_MOVIES :String = "movie/popular?language=pt-BR&page=1"
         const val URL_BASE_IMG: String = "https://image.tmdb.org/t/p/original/"
         const val GET_IMAGE:String = "{image}"
+        const val URL_FUTURE_MOVIES:String = "movie/upcoming?language=pt-BR&page=1"
     }
 
 
