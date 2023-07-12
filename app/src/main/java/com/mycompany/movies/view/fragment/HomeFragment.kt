@@ -19,6 +19,7 @@ class HomeFragment : Fragment() {
     private lateinit var binding: FragmentHomeBinding
     private val adapter = MoviesPopularAdapter()
     private val viewModel: HomeFragmentViewModel by viewModels()
+    private var isDataLoaded = false
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
