@@ -1,11 +1,13 @@
 package com.mycompany.movies.request.repository
 
 
+import android.annotation.SuppressLint
 import android.graphics.Bitmap
 import com.google.gson.Gson
 import com.mycompany.movies.model.ErrorResponse
 import com.mycompany.movies.model.FuturesMovies
 import com.mycompany.movies.model.Movies
+import com.mycompany.movies.model.Result
 import com.mycompany.movies.request.Retrofit
 import com.mycompany.movies.request.service.ApiResponse
 import com.mycompany.movies.request.service.MoviesServices
@@ -22,7 +24,6 @@ import java.net.HttpURLConnection
 class MoviesRepository {
 
     private val remote = Retrofit.getService(MoviesServices::class.java)
-
     private val repositoryImage = ImageRepository()
     fun getMoviesPopular(listener: ApiResponse<List<Bitmap?>>) {
         val call = remote.getPopularMovies()
@@ -38,7 +39,7 @@ class MoviesRepository {
                                 if (movieList.isNotEmpty()){
                                     listener.success(movieList)
                                 }else{
-                                    listener.failure("erro")
+                                    listener.failure("erro, não foi possível carregar as imagens.")
                                 }
                             }
                         }
@@ -64,7 +65,6 @@ class MoviesRepository {
 
     }
 
-
     fun getCurrentlyInMovies(listener: ApiResponse<List<Pair<String, Bitmap?>>>) {
         val call = remote.getCurrentlyInMovies()
         call.enqueue(object : Callback<FuturesMovies> {
@@ -77,18 +77,81 @@ class MoviesRepository {
                                 if (moviesFutures.isNotEmpty()) {
                                     listener.success(moviesFutures)
                                 } else {
-                                    listener.failure("erro")
+                                    listener.failure("erro, não foi possível carregar as imagens.")
                                 }
                             }
                         }
                     } else {
-                        listener.failure("sei lá ")
+                        listener.failure("As Buscas pelo conteúdo foram mal sucessidas.")
                     }
                 }
             }
 
             override fun onFailure(call: Call<FuturesMovies>, t: Throwable) {
-                listener.failure("errooo lindo ")
+                if (t is IOException) {
+                    listener.failure("erro, sem conexão!")
+                } else {
+                    listener.failure("erro estamos verificando, breve estará no ar.")
+                }
+            }
+
+        })
+    }
+
+    fun getFutureMovies(listener: ApiResponse<List<Pair<String, Bitmap?>>>) {
+        val call = remote.getFutureMovies()
+        call.enqueue(object : Callback<FuturesMovies> {
+            @SuppressLint("SuspiciousIndentation")
+            override fun onResponse(call: Call<FuturesMovies>, response: Response<FuturesMovies>) {
+                if (response.isSuccessful) {
+                    if (response.code() == HttpURLConnection.HTTP_OK) {
+                        response.body()?.let { movies ->
+                            CoroutineScope(Dispatchers.Main).launch {
+                                val moviesFuture =
+                                    repositoryImage.getCurrentlyInMovies(movies.results)
+                                if (moviesFuture.isNotEmpty()) {
+                                    listener.success(moviesFuture)
+                                } else {
+                                    listener.failure("erro, não foi possível carregar as imagens.")
+                                }
+                            }
+                        }
+                    }
+                } else {
+                    listener.failure("As Buscas pelo conteúdo foram mal sucessidas.")
+                }
+            }
+
+            override fun onFailure(call: Call<FuturesMovies>, t: Throwable) {
+                if (t is IOException) {
+                    listener.failure("erro, sem conexão!")
+                } else {
+                    listener.failure("erro estamos verificando, breve estará no ar.")
+                }
+            }
+
+        })
+    }
+
+    fun searchMovies(movies: String, listener: ApiResponse<List<Result>>) {
+        val call = remote.searchMovies(movies)
+        call.enqueue(object : Callback<Movies> {
+            override fun onResponse(call: Call<Movies>, response: Response<Movies>) {
+                if (response.code() == HttpURLConnection.HTTP_OK) {
+                    response.body()?.let { movies ->
+                        val list = mutableListOf<Result>()
+                        movies.results.map {
+                            list.add(it)
+                        }
+                        listener.success(list)
+                    }
+                } else {
+                    listener.failure("erro")
+                }
+            }
+
+            override fun onFailure(call: Call<Movies>, t: Throwable) {
+                listener.failure("erro 2")
             }
 
         })

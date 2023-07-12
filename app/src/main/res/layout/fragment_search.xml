@@ -1,14 +1,51 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/gray_main"
+    android:gravity="center"
+    android:orientation="vertical"
     tools:context=".view.fragment.SearchFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="search" />
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycler_result_search"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
 
-</FrameLayout>
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/image_search_not_found"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_gravity="center"
+        android:src="@drawable/group_adobe_express"
+        android:visibility="gone"
+        />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/text_sorry"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/search_not_found"
+        android:gravity="center"
+        android:textSize="16sp"
+        android:fontFamily="@font/montserrat_semibold"
+        android:textColor="@color/white"
+        android:layout_marginTop="12dp"
+        android:visibility="gone"
+        />
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/text_information"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/information_search"
+        android:gravity="center"
+        android:textColor="@color/gray_second"
+        android:fontFamily="@font/montserrat_medium"
+        android:textSize="12sp"
+        android:layout_marginTop="8dp"
+        android:visibility="gone"
+        />
+
+
+</LinearLayout>

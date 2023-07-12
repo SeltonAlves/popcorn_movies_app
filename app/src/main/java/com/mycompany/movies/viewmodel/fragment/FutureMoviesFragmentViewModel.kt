@@ -9,22 +9,22 @@ import com.mycompany.movies.request.repository.MoviesRepository
 import com.mycompany.movies.request.service.ApiResponse
 
 class FutureMoviesFragmentViewModel(application: Application) : AndroidViewModel(application) {
-    private val repository = MoviesRepository()
+    private val remote = MoviesRepository()
 
-    private val _movies = MutableLiveData<List<Pair<String,Bitmap?>>>()
-    val movies : LiveData<List<Pair<String,Bitmap?>>> = _movies
+    private var _movies = MutableLiveData<List<Pair<String, Bitmap?>>>()
+    val movies: LiveData<List<Pair<String, Bitmap?>>> = _movies
 
-    private val _error = MutableLiveData<String>()
-    val error : LiveData<String> = _error
+    private var _isLoading = MutableLiveData<Boolean>()
+    val loading: LiveData<Boolean> = _isLoading
 
-    private val _isLoading = MutableLiveData<Boolean>()
-    val isLoading : LiveData<Boolean> = _isLoading
+    private var _error = MutableLiveData<String>()
+    val error: LiveData<String> = _error
 
-    fun currentlyInMovies(){
-        repository.getCurrentlyInMovies(object :ApiResponse<List<Pair<String,Bitmap?>>>{
+    fun getFutureMovies(){
+        remote.getFutureMovies(object :ApiResponse<List<Pair<String,Bitmap?>>>{
             override fun success(result: List<Pair<String, Bitmap?>>) {
                 _isLoading.value = true
-                if (result.isNotEmpty()){
+                if (result.size >= 2){
                     _movies.value = result
                 }
                 _isLoading.value = false
@@ -37,4 +37,5 @@ class FutureMoviesFragmentViewModel(application: Application) : AndroidViewModel
 
         })
     }
+
 }

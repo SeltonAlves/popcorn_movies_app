@@ -10,13 +10,13 @@ import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.GridLayoutManager
 import com.mycompany.movies.databinding.FragmentCurrentlyInMoviesBinding
 import com.mycompany.movies.view.adapter.MainMoviesAdapter
-import com.mycompany.movies.viewmodel.fragment.FutureMoviesFragmentViewModel
+import com.mycompany.movies.viewmodel.fragment.CurrentlyInMoviesFragmentViewModel
 
 
 class CurrentlyInMoviesFragment : Fragment() {
 
     private lateinit var binding : FragmentCurrentlyInMoviesBinding
-    private val viewModel: FutureMoviesFragmentViewModel by viewModels()
+    private val viewModel: CurrentlyInMoviesFragmentViewModel by viewModels()
     private val adapter = MainMoviesAdapter()
 
     override fun onCreateView(

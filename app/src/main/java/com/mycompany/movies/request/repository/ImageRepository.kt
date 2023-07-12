@@ -9,6 +9,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import retrofit2.awaitResponse
 import java.io.IOException
+import java.net.SocketTimeoutException
 
 class ImageRepository {
     private val remote = RetrofitImage.getService(ImageServices::class.java)
@@ -17,8 +18,9 @@ class ImageRepository {
         return withContext(Dispatchers.IO) {
             val listMovies = mutableListOf<Bitmap?>()
             try {
-                for (movie in list) {
-                    val response = remote.getImage(movie.poster_path).awaitResponse()
+                list.map { movies ->
+                    val response =
+                        remote.getImage(movies.poster_path.dropLast(3)).awaitResponse()
                     if (response.isSuccessful) {
                         val responseBody = response.body()
                         val inputStream = responseBody?.byteStream()
@@ -44,22 +46,27 @@ class ImageRepository {
     suspend fun getCurrentlyInMovies(list: List<Result>): List<Pair<String, Bitmap?>> {
         return withContext(Dispatchers.IO) {
             val movies: MutableList<Pair<String, Bitmap?>> = mutableListOf()
-            for (results in list) {
-                val response = remote.getImage(results.poster_path).awaitResponse()
-                if (response.isSuccessful) {
-                    val body = response.body()
-                    val input = body?.byteStream()
-                    if (input != null) {
-                        val bitmap = BitmapFactory.decodeStream(input)
-                        movies.add(Pair(results.title, bitmap))
-                    }else{
+            try {
+                list.map { results ->
+                    val response = remote.getImage(results.poster_path.dropLast(3)).awaitResponse()
+                    if (response.isSuccessful) {
+                        val body = response.body()
+                        val input = body?.byteStream()
+                        if (input != null) {
+                            val bitmap = BitmapFactory.decodeStream(input)
+                            movies.add(Pair(results.title, bitmap))
+                        } else {
+                            movies.add(Pair(results.title, null))
+                        }
+                    } else {
                         movies.add(Pair(results.title, null))
                     }
-                }else{
-                    movies.add(Pair(results.title, null))
                 }
+            }catch (e : SocketTimeoutException){
+                movies.add(Pair("erro",null))
             }
-           return@withContext movies
+
+            return@withContext movies
         }
     }
 

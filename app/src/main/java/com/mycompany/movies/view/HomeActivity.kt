@@ -1,6 +1,8 @@
 package com.mycompany.movies.view
 
+import android.annotation.SuppressLint
 import android.os.Bundle
+import android.view.KeyEvent
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
@@ -23,10 +25,24 @@ class HomeActivity : AppCompatActivity() {
         initNavigation()
     }
 
+    @SuppressLint("ResourceType")
     private fun handleClick() {
         binding.editTextSearch.setOnClickListener {
             binding.editTextSearch.isFocusableInTouchMode = true
             binding.editTextSearch.isFocusable = true
+        }
+        binding.editTextSearch.setOnKeyListener { _, keyCode, event ->
+            if (event.action == KeyEvent.ACTION_DOWN && keyCode == KeyEvent.KEYCODE_ENTER) {
+                val args = Bundle().apply {
+                    putString("searchText", binding.editTextSearch.text.toString())
+                }
+                navController.navigate(R.id.search, args)
+
+                binding.editTextSearch.isFocusableInTouchMode = true
+                binding.editTextSearch.isFocusable = true
+                return@setOnKeyListener true
+            }
+            return@setOnKeyListener false
         }
     }
 
