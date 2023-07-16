@@ -9,7 +9,7 @@ class Constrants private constructor(){
         const val GET_IMAGE:String = "{image}svg"
         const val URL_CURRENTLY_IN_MOVIES:String = "movie/upcoming?language=pt-BR&page=1"
         const val URL_FUTURE_MOVIES: String = "movie/now_playing?language=pt-BR&page=1"
-        const val URL_SEARCH_MOVIES : String = "search/movie?query={movies}&include_adult=false&language=pt-BR&page=1"
+        const val URL_SEARCH_MOVIES : String = "search/movie"
     }
 
 

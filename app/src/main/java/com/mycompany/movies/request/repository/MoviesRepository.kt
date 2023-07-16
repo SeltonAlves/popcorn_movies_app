@@ -138,13 +138,13 @@ class MoviesRepository {
         call.enqueue(object : Callback<Movies> {
             override fun onResponse(call: Call<Movies>, response: Response<Movies>) {
                 if (response.code() == HttpURLConnection.HTTP_OK) {
+                    val list = mutableListOf<Result>()
                     response.body()?.let { movies ->
-                        val list = mutableListOf<Result>()
-                        movies.results.map {
-                            list.add(it)
+                        for (results in movies.results){
+                            list.add(results)
                         }
-                        listener.success(list)
                     }
+                    listener.success(list)
                 } else {
                     listener.failure("erro")
                 }

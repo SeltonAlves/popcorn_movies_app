@@ -28,9 +28,12 @@ interface MoviesServices {
         @Query("api_key") apiKey: String = Constrants.API_KEY
     ): Call<FuturesMovies>
 
-    @GET()
+    @GET(Constrants.URL_SEARCH_MOVIES)
     fun searchMovies(
-        @Path("movies") movies : String,
+        @Query("query") query: String,
+        @Query("include_adult") includeAdult: Boolean = false,
+        @Query("language") language: String = "pt-BR",
+        @Query("page") page: Int = 1,
         @Header("accept") accept: String = "application/json",
         @Query("api_key") apiKey: String = Constrants.API_KEY
     ): Call<Movies>

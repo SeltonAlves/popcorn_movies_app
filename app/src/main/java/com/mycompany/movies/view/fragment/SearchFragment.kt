@@ -4,8 +4,10 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.LinearLayout
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.mycompany.movies.databinding.FragmentSearchBinding
 import com.mycompany.movies.view.adapter.SearchAdapter
 import com.mycompany.movies.viewmodel.fragment.SearchFragmentViewModel
@@ -38,14 +40,22 @@ class SearchFragment : Fragment() {
     private fun observe() {
         viewModel.loading.observe(viewLifecycleOwner) { loading ->
             if (loading) {
-
+                val s = ""
             } else if (loading == false) {
-
+                    recycler()
             } else {
-                binding.recyclerResultSearch.visibility = View.GONE
+                binding.recyclerResultSearch.visibility = View.VISIBLE
                 binding.imageSearchNotFound.visibility = View.VISIBLE
                 binding.textSorry.visibility = View.VISIBLE
                 binding.textInformation.visibility = View.VISIBLE
+
+
+            }
+        }
+
+        viewModel.movies.observe(viewLifecycleOwner){
+            if (it != null){
+                adapter.setItem(it)
             }
         }
 
@@ -53,5 +63,8 @@ class SearchFragment : Fragment() {
 
 
     private fun recycler() {
+        binding.recyclerResultSearch.layoutManager = LinearLayoutManager(context)
+        binding.recyclerResultSearch.adapter = adapter
     }
+
 }
