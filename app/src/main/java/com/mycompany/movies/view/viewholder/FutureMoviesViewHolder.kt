@@ -1,6 +1,6 @@
 package com.mycompany.movies.view.viewholder
 
-import android.graphics.Bitmap
+import android.graphics.drawable.Drawable
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
 import com.mycompany.movies.databinding.ItemMainMoviesBinding
@@ -8,11 +8,15 @@ import com.mycompany.movies.databinding.ItemMainMoviesBinding
 class FutureMoviesViewHolder(private val binding: ItemMainMoviesBinding) :
     RecyclerView.ViewHolder(binding.root) {
 
-    fun bind(item: Pair<String, Bitmap?>) {
-        if (item.second != null) {
+    val img = binding.image
+
+    fun bind( title: String,img: Drawable?) {
+        if (img != null) {
             binding.text.visibility = View.VISIBLE
-            binding.text.text = item.first
-            binding.image.setImageBitmap(item.second)
+            binding.text.text = title
+            binding.image.setImageDrawable(img)
+            binding.shimmerLayout.shimmerDuration = 0
+            binding.shimmerLayout.shimmerColor = 0
         }else{
             bindShimmer()
         }
@@ -23,8 +27,5 @@ class FutureMoviesViewHolder(private val binding: ItemMainMoviesBinding) :
         binding.text.text = ""
     }
 
-    fun hideShimmer(){
-        binding.shimmerFrame.hideShimmer()
-    }
 
 }

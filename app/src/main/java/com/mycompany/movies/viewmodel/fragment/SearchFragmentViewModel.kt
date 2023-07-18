@@ -19,20 +19,23 @@ class SearchFragmentViewModel(application: Application) : AndroidViewModel(appli
     val movies : LiveData<List<Result>> = _movies
 
     fun searchMovies(movies : String?){
-        _loading.value = true
-        repository.searchMovies(movies = movies!!, listener = object : ApiResponse<List<Result>>{
-                override fun success(result: List<Result>) {
-                  if (result.isNotEmpty()){
-                      _loading.value = false
-                      _movies.value = result
-                  }
-                }
+        if (movies != null) {
+            _loading.value = true
+            repository.searchMovies(
+                movies = movies,
+                listener = object : ApiResponse<List<Result>> {
+                    override fun success(result: List<Result>) {
+                        if (result.isNotEmpty()) {
+                            _movies.value = result
+                            _loading.value = false
+                        }
+                    }
 
-                override fun failure(message: String) {
-                    _loading.value = true
-                }
+                    override fun failure(message: String) {
+                        _loading.value = true
+                    }
 
             })
         }
-
+        }
 }

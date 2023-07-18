@@ -10,8 +10,8 @@ import com.mycompany.movies.request.service.ApiResponse
 
 class HomeFragmentViewModel(application: Application) : AndroidViewModel(application) {
     private val repository = MoviesRepository()
-    private val _list = MutableLiveData<List<Bitmap?>>()
-    val list: LiveData<List<Bitmap?>> = _list
+    private val _list = MutableLiveData<List<String>>()
+    val list: LiveData<List<String>> = _list
     private val _error = MutableLiveData<String>()
     val error: LiveData<String> = _error
     private val _isLoading = MutableLiveData<Boolean>()
@@ -20,12 +20,12 @@ class HomeFragmentViewModel(application: Application) : AndroidViewModel(applica
 
     fun moviesPopular() {
         _isLoading.value = true
-        repository.getMoviesPopular(object : ApiResponse<List<Bitmap?>>{
-            override fun success(result: List<Bitmap?>) {
+        repository.getMoviesPopular(object : ApiResponse<List<String>>{
+            override fun success(result: List<String>) {
                 if (result.isNotEmpty()){
-                    _list.value = result
+                    _list.value = result.take(10)
+                    _isLoading.value = false
                 }
-                _isLoading.value = false
             }
             override fun failure(message: String) {
                 _error.value = message

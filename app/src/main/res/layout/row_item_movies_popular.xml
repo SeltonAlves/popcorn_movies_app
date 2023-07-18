@@ -7,24 +7,21 @@
     android:background="@color/gray_main"
     >
 
-    <com.facebook.shimmer.ShimmerFrameLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/shimmer_frame"
-        app:shimmer_duration="1000"
-        app:shimmer_repeat_delay="500">
+<xyz.peridy.shimmerlayout.ShimmerLayout
+    android:id="@+id/shimmer_layout"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
 
+    <androidx.cardview.widget.CardView
+        android:id="@+id/card"
+        android:layout_width="144dp"
+        android:layout_height="210dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="6dp"
+        android:layout_marginEnd="10dp"
+        app:cardCornerRadius="20sp">
 
-        <androidx.cardview.widget.CardView
-            android:id="@+id/card"
-            android:layout_marginStart="8dp"
-            android:layout_marginEnd="10dp"
-            android:layout_marginTop="6dp"
-            android:layout_width="144dp"
-            android:layout_height="210dp"
-            app:cardCornerRadius="20sp">
-
-            <RelativeLayout
+        <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
                 <ImageView
@@ -36,6 +33,7 @@
 
             </RelativeLayout>
         </androidx.cardview.widget.CardView>
+
         <TextView
             android:id="@+id/text_position"
             android:layout_width="wrap_content"
@@ -52,6 +50,6 @@
             android:translationY="120dp"
             android:translationZ="100dp"
             tools:ignore="NotSibling,VisualLintBounds" />
-    </com.facebook.shimmer.ShimmerFrameLayout>
+</xyz.peridy.shimmerlayout.ShimmerLayout>
 
 </RelativeLayout>

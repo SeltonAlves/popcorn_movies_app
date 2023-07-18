@@ -10,4 +10,5 @@
     <color name="button_native">#0296E5</color>
     <color name="button_inactive">#67686D</color>
     <color name="gray_second">#92929D</color>
+    <color name="yellow">#FF8700</color>
 </resources>

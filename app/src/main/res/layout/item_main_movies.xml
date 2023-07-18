@@ -7,8 +7,8 @@
     android:layout_marginStart="40dp"
     android:layout_marginTop="4dp">
 
-<com.facebook.shimmer.ShimmerFrameLayout
-    android:id="@+id/shimmer_frame"
+<xyz.peridy.shimmerlayout.ShimmerLayout
+    android:id="@+id/shimmer_layout"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content">
 
@@ -27,23 +27,23 @@
             android:src="@mipmap/ic_launcher" />
     </androidx.cardview.widget.CardView>
 
-</com.facebook.shimmer.ShimmerFrameLayout>
-
+</xyz.peridy.shimmerlayout.ShimmerLayout>
     <TextView
         android:id="@+id/text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/shimmer_frame"
-        android:layout_alignStart="@id/shimmer_frame"
-        android:layout_alignEnd="@id/shimmer_frame"
         android:fontFamily="@font/poppins_medium"
         android:gravity="center"
-        android:text="dfsdfs"
-        android:layout_marginTop="6dp"
-        android:layout_marginBottom="6dp"
+        android:text="carregando..."
+        android:layout_alignStart="@id/shimmer_layout"
+        android:layout_alignEnd="@id/shimmer_layout"
+        android:layout_below="@id/shimmer_layout"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="12dp"
         android:textColor="@color/white"
         android:textSize="10sp"
-        tools:ignore="SmallSp" />
+        tools:ignore="SmallSp"
+        android:layout_gravity="bottom"/>
 
 </RelativeLayout>
 

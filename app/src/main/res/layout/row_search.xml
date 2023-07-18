@@ -1,31 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<xyz.peridy.shimmerlayout.ShimmerLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/shimmer_layout"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/gray_main">
+    android:layout_height="wrap_content"
+    android:background="@color/gray_main"
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <androidx.cardview.widget.CardView
-        android:id="@+id/card"
+    <RelativeLayout
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:cardCornerRadius="18dp">
+        android:layout_height="wrap_content">
 
-        <androidx.appcompat.widget.AppCompatImageView
-            android:id="@+id/image_poster"
-            android:layout_width="95dp"
-            android:layout_height="120dp" />
-    </androidx.cardview.widget.CardView>
+        <androidx.cardview.widget.CardView
+            android:id="@+id/card"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="12dp"
+            app:cardCornerRadius="18dp">
 
-    <TextView
-        android:id="@+id/text_name_movies"
-        android:layout_width="wrap_content"
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/image_poster"
+                android:layout_width="95dp"
+                android:layout_height="120dp"
+                android:scaleType="centerCrop"/>
+        </androidx.cardview.widget.CardView>
+
+        <TextView
+            android:id="@+id/text_name_movies"
+            android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="12dp"
         android:layout_toEndOf="@id/card"
-        android:text="Spiderman"
-        android:textColor="@color/white"
+            android:layout_alignTop="@id/card"
+            android:text="caregando..."
+            android:textColor="@color/white"
         android:textSize="16sp" />
 
     <androidx.appcompat.widget.AppCompatImageView
@@ -38,54 +47,40 @@
         android:src="@drawable/star" />
 
     <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/text_assessment"
+        android:id="@+id/text_start"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignTop="@id/image_star"
         android:layout_marginStart="6dp"
         android:layout_toEndOf="@id/image_star"
         android:fontFamily="@font/montserrat_semibold"
-        android:text="8.5"
-        android:textColor="@color/button_native"
+        android:textColor="@color/yellow"
         android:textSize="12sp" />
 
-    <androidx.appcompat.widget.AppCompatImageView
-        android:id="@+id/image_ticket"
-        android:layout_width="16dp"
-        android:layout_height="16dp"
-        android:layout_below="@id/image_star"
-        android:layout_alignStart="@id/image_star"
-        android:layout_marginTop="14dp"
-        android:src="@drawable/ticket" />
+        <ImageView
+            android:id="@+id/image_calendar"
+            android:layout_width="16dp"
+            android:layout_height="16dp"
+            android:layout_below="@id/image_star"
+            android:layout_alignStart="@id/image_star"
+            android:layout_marginTop="6dp"
+            android:src="@drawable/calendarblank"
+            android:translationZ="900dp"/>
 
-    <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/text_tick"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignEnd="@id/text_assessment"
-        android:layout_alignBottom="@id/image_ticket"
-        android:layout_marginStart="6dp"
-        android:fontFamily="@font/montserrat_semibold"
-        android:text="8.5"
-        android:textColor="@color/button_native"
-        android:textSize="12sp" />
+            <TextView
+                android:id="@+id/text_calendar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/montserrat_semibold"
+                android:textSize="12sp"
+                android:layout_alignStart="@id/text_start"
+                android:layout_alignTop="@id/image_calendar"
+                tools:ignore="TextSizeCheck"
+                android:textColor="@color/white"/>
 
-    <ImageView
-        android:id="@+id/image_calendar"
-        android:layout_width="16dp"
-        android:layout_height="16dp"
-        android:layout_below="@id/image_ticket"
-        android:layout_alignStart="@id/image_ticket"
-        android:src="@drawable/calendarblank"
-        android:layout_marginTop="14dp"/>
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignEnd="@id/text_tick"
-        android:layout_alignBottom="@id/image_calendar"
-        android:fontFamily="@font/montserrat_semibold"
-        android:text="7.8"
-        android:textSize="12dp"
-        tools:ignore="TextSizeCheck" />
-</RelativeLayout>
+
+    </RelativeLayout>
+
+
+</xyz.peridy.shimmerlayout.ShimmerLayout>

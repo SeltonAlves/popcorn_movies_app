@@ -11,8 +11,8 @@ import com.mycompany.movies.request.service.ApiResponse
 class CurrentlyInMoviesFragmentViewModel(application: Application) : AndroidViewModel(application) {
     private val repository = MoviesRepository()
 
-    private val _movies = MutableLiveData<List<Pair<String,Bitmap?>>>()
-    val movies : LiveData<List<Pair<String,Bitmap?>>> = _movies
+    private val _movies = MutableLiveData<List<Pair<String,String?>>>()
+    val movies : LiveData<List<Pair<String,String?>>> = _movies
 
     private val _error = MutableLiveData<String>()
     val error : LiveData<String> = _error
@@ -21,8 +21,8 @@ class CurrentlyInMoviesFragmentViewModel(application: Application) : AndroidView
     val isLoading : LiveData<Boolean> = _isLoading
 
     fun currentlyInMovies(){
-        repository.getCurrentlyInMovies(object :ApiResponse<List<Pair<String,Bitmap?>>>{
-            override fun success(result: List<Pair<String, Bitmap?>>) {
+        repository.getInMovies(1, object :ApiResponse<List<Pair<String,String?>>>{
+            override fun success(result: List<Pair<String, String?>>) {
                 _isLoading.value = true
                 if (result.isNotEmpty()){
                     _movies.value = result
@@ -33,6 +33,7 @@ class CurrentlyInMoviesFragmentViewModel(application: Application) : AndroidView
             override fun failure(message: String) {
                 _isLoading.value = true
                 _error.value = message
+
             }
 
         })

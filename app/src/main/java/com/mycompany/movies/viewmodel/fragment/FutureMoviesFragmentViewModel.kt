@@ -1,7 +1,6 @@
 package com.mycompany.movies.viewmodel.fragment
 
 import android.app.Application
-import android.graphics.Bitmap
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -9,10 +8,10 @@ import com.mycompany.movies.request.repository.MoviesRepository
 import com.mycompany.movies.request.service.ApiResponse
 
 class FutureMoviesFragmentViewModel(application: Application) : AndroidViewModel(application) {
-    private val remote = MoviesRepository()
+    private val repository = MoviesRepository()
 
-    private var _movies = MutableLiveData<List<Pair<String, Bitmap?>>>()
-    val movies: LiveData<List<Pair<String, Bitmap?>>> = _movies
+    private var _movies = MutableLiveData<List<Pair<String, String?>>>()
+    val movies: LiveData<List<Pair<String, String?>>> = _movies
 
     private var _isLoading = MutableLiveData<Boolean>()
     val loading: LiveData<Boolean> = _isLoading
@@ -20,11 +19,11 @@ class FutureMoviesFragmentViewModel(application: Application) : AndroidViewModel
     private var _error = MutableLiveData<String>()
     val error: LiveData<String> = _error
 
-    fun getFutureMovies(){
-        remote.getFutureMovies(object :ApiResponse<List<Pair<String,Bitmap?>>>{
-            override fun success(result: List<Pair<String, Bitmap?>>) {
+    fun getFutureMovies() {
+        repository.getInMovies(2, object :ApiResponse<List<Pair<String,String?>>>{
+            override fun success(result: List<Pair<String, String?>>) {
                 _isLoading.value = true
-                if (result.size >= 2){
+                if (result.isNotEmpty()){
                     _movies.value = result
                 }
                 _isLoading.value = false
@@ -33,9 +32,11 @@ class FutureMoviesFragmentViewModel(application: Application) : AndroidViewModel
             override fun failure(message: String) {
                 _isLoading.value = true
                 _error.value = message
+
             }
 
         })
+
     }
 
 }
