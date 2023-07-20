@@ -9,6 +9,9 @@ class Constraints private constructor(){
         const val URL_FUTURE_IN_MOVIES:String = "movie/upcoming?language=pt-BR&page=1"
         const val URL_CURRENTLY_IN_MOVIES: String = "movie/now_playing?language=pt-BR&page=1"
         const val URL_SEARCH_MOVIES : String = "search/movie"
+        const val URL_GET_ID_MOVIES: String = "movie/{id}?language=pt-BR"
+        const val KEY_SEARCH_MOVIES: String = "searchText"
+        const val KEY_CODE_MOVIES:String = "code"
     }
 
 

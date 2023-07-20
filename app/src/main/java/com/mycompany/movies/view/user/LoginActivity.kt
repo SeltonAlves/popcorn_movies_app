@@ -7,7 +7,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import com.google.firebase.auth.FirebaseAuth
 import com.mycompany.movies.databinding.ActivityLoginBinding
-import com.mycompany.movies.view.HomeActivity
+import com.mycompany.movies.view.activity.HomeActivity
 import com.mycompany.movies.viewmodel.user.LoginViewModel
 
 class LoginActivity : AppCompatActivity() {

@@ -2,6 +2,7 @@ package com.mycompany.movies.request.repository
 
 
 import com.google.gson.Gson
+import com.mycompany.movies.model.DetailedMovies
 import com.mycompany.movies.model.ErrorResponse
 import com.mycompany.movies.model.FuturesMovies
 import com.mycompany.movies.model.Movies
@@ -54,7 +55,6 @@ class MoviesRepository {
         })
 
     }
-
     fun getInMovies(code: Int, listener: ApiResponse<List<Pair<String, String?>>>) {
         call = if (code == 1) {
             remote.geCurrentlyInMovies()
@@ -106,6 +106,39 @@ class MoviesRepository {
             }
 
             override fun onFailure(call: Call<Movies>, t: Throwable) {
+                if (t is IOException) {
+                    listener.failure("erro, sem conexão!")
+                } else {
+                    listener.failure("erro estamos verificando, breve estará no ar.")
+                }
+            }
+
+        })
+    }
+
+    fun getIdMovies(id: Int, listener: ApiResponse<DetailedMovies>) {
+        val call = remote.getIdMovies(id)
+        call.enqueue(object : Callback<DetailedMovies> {
+            override fun onResponse(
+                call: Call<DetailedMovies>,
+                response: Response<DetailedMovies>
+            ) {
+                if (response.code() == HttpURLConnection.HTTP_OK) {
+                    response.body()?.let {
+                        listener.success(it)
+                    }
+                } else if (response.code() == HttpURLConnection.HTTP_UNAUTHORIZED){
+                    val error = Gson().fromJson(
+                        response.errorBody()?.toString(),
+                        ErrorResponse::class.java
+                    )
+                    listener.failure(error.status_message)
+                }else{
+                    listener.failure("As Buscas pelo conteúdo foram mal sucessidas.")
+                }
+            }
+
+            override fun onFailure(call: Call<DetailedMovies>, t: Throwable) {
                 if (t is IOException) {
                     listener.failure("erro, sem conexão!")
                 } else {

@@ -6,7 +6,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import com.mycompany.movies.databinding.ActivityCreateAccountBinding
-import com.mycompany.movies.view.HomeActivity
+import com.mycompany.movies.view.activity.HomeActivity
 import com.mycompany.movies.viewmodel.user.CreateAccountViewModel
 
 class CreateAccountActivity : AppCompatActivity() {
@@ -38,7 +38,7 @@ class CreateAccountActivity : AppCompatActivity() {
     private fun observe() {
         viewModel.status.observe(this){
             if (it.status()){
-                startActivity(Intent(this,HomeActivity::class.java))
+                startActivity(Intent(this, HomeActivity::class.java))
                 finish()
             }else{
                 Toast.makeText(this,it.message(),Toast.LENGTH_SHORT).show()

@@ -1,6 +1,7 @@
 package com.mycompany.movies.view.fragment
 
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -10,6 +11,9 @@ import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.mycompany.movies.databinding.FragmentSearchBinding
 import com.mycompany.movies.model.Result
+import com.mycompany.movies.util.Constraints
+import com.mycompany.movies.util.OnClickListener
+import com.mycompany.movies.view.activity.DetailsActivity
 import com.mycompany.movies.view.adapter.SearchAdapter
 import com.mycompany.movies.viewmodel.fragment.SearchFragmentViewModel
 
@@ -37,18 +41,34 @@ class SearchFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
 
-        searchText = arguments?.getString("searchText")
+        searchText = arguments?.getString(Constraints.KEY_SEARCH_MOVIES)
         backFragment()
         viewModel.searchMovies(searchText)
         recycler()
+        onClick()
         observe()
     }
+
+    private fun onClick() {
+        val listener = object : OnClickListener {
+            override fun onClick(code: Int?) {
+                if (code != null) {
+                    val intent = Intent(context, DetailsActivity::class.java)
+                    val bundle = Bundle()
+                    bundle.putInt(Constraints.KEY_CODE_MOVIES, code)
+                    startActivity(intent, bundle)
+                }
+            }
+        }
+        adapter.onClick(listener)
+    }
+
     private fun backFragment() {
         if (list.isNotEmpty() && searchText == null) {
             visible(false)
             adapter.setItem(list)
-        }else{
-            if (list.size == 20 && searchText != null){
+        } else {
+            if (list.size == 20 && searchText != null) {
                 list.clear()
                 viewModel.searchMovies(searchText)
             }

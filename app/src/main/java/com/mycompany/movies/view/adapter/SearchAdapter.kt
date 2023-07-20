@@ -16,14 +16,16 @@ import com.bumptech.glide.request.transition.Transition
 import com.mycompany.movies.databinding.RowSearchBinding
 import com.mycompany.movies.model.Result
 import com.mycompany.movies.util.Constraints
+import com.mycompany.movies.util.OnClickListener
 import com.mycompany.movies.view.viewholder.SearchViewHolder
 
 class SearchAdapter : RecyclerView.Adapter<SearchViewHolder>() {
     private var list = listOf<Result>()
+    private lateinit var listener: OnClickListener
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SearchViewHolder {
         val item = RowSearchBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        return SearchViewHolder(item)
+        return SearchViewHolder(item,listener)
     }
 
     override fun getItemCount(): Int {
@@ -55,6 +57,7 @@ class SearchAdapter : RecyclerView.Adapter<SearchViewHolder>() {
                         transition: Transition<in Drawable>?
                     ) {
                         holder.bind(
+                            code = list[position].id,
                             img = resource,
                             title = list[position].title,
                             popularity = list[position].popularity,
@@ -68,6 +71,10 @@ class SearchAdapter : RecyclerView.Adapter<SearchViewHolder>() {
     fun setItem(result: List<Result>) {
         list = result
         notifyDataSetChanged()
+    }
+
+    fun onClick(click: OnClickListener) {
+        listener = click
     }
 
 }
