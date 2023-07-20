@@ -24,7 +24,6 @@ class HomeActivity : AppCompatActivity() {
         handleClick()
         initNavigation()
     }
-
     @SuppressLint("ResourceType")
     private fun handleClick() {
         binding.editTextSearch.setOnClickListener {
@@ -33,10 +32,13 @@ class HomeActivity : AppCompatActivity() {
         }
         binding.editTextSearch.setOnKeyListener { _, keyCode, event ->
             if (event.action == KeyEvent.ACTION_DOWN && keyCode == KeyEvent.KEYCODE_ENTER) {
-                val args = Bundle().apply {
-                    putString("searchText", binding.editTextSearch.text.toString())
+                val searchText = binding.editTextSearch.text.toString()
+                if (searchText.isNotBlank()) {
+                    val args = Bundle().apply {
+                        putString("searchText", searchText)
+                    }
+                    navController.navigate(R.id.search, args)
                 }
-                navController.navigate(R.id.search, args)
 
                 binding.editTextSearch.isFocusableInTouchMode = true
                 binding.editTextSearch.isFocusable = true
@@ -44,12 +46,35 @@ class HomeActivity : AppCompatActivity() {
             }
             return@setOnKeyListener false
         }
+
     }
 
     private fun initNavigation() {
         val navHostFragment =
             supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
         navController = navHostFragment.navController
-        NavigationUI.setupWithNavController(binding.navigationBottom,navController)
+        NavigationUI.setupWithNavController(binding.navigationBottom, navController)
+
+        binding.navigationBottom.setOnItemSelectedListener { item ->
+            return@setOnItemSelectedListener when (item.itemId) {
+                R.id.home -> {
+                    navController.navigate(R.id.home)
+                    true
+                }
+
+                R.id.search -> {
+                    navController.navigate(R.id.search)
+                    true
+                }
+
+                R.id.user -> {
+                    navController.navigate(R.id.user)
+                    true
+                }
+
+                else -> false
+            }
+        }
+
     }
 }

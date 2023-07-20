@@ -13,12 +13,11 @@ class SearchFragmentViewModel(application: Application) : AndroidViewModel(appli
     private val repository = MoviesRepository()
 
     private var _loading = MutableLiveData<Boolean>()
-    val loading : LiveData<Boolean> = _loading
+    val loading: LiveData<Boolean> = _loading
 
     private var _movies = MutableLiveData<List<Result>>()
-    val movies : LiveData<List<Result>> = _movies
-
-    fun searchMovies(movies : String?){
+    val movies: LiveData<List<Result>> = _movies
+    fun searchMovies(movies: String?) {
         if (movies != null) {
             _loading.value = true
             repository.searchMovies(
@@ -27,6 +26,8 @@ class SearchFragmentViewModel(application: Application) : AndroidViewModel(appli
                     override fun success(result: List<Result>) {
                         if (result.isNotEmpty()) {
                             _movies.value = result
+                            _loading.value = false
+                        } else {
                             _loading.value = false
                         }
                     }

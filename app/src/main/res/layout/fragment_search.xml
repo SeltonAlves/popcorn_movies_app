@@ -5,12 +5,15 @@
     android:layout_height="match_parent"
     android:background="@color/gray_main"
     android:orientation="vertical"
+    android:gravity="center"
     tools:context=".view.fragment.SearchFragment">
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recycler_result_search"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycler_result_search"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="top"
+        android:visibility="gone" />
 
     <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/image_search_not_found"
@@ -18,7 +21,6 @@
         android:layout_height="80dp"
         android:layout_gravity="center"
         android:src="@drawable/group_adobe_express"
-        android:visibility="gone"
         />
 
     <androidx.appcompat.widget.AppCompatTextView
@@ -31,7 +33,6 @@
         android:fontFamily="@font/montserrat_semibold"
         android:textColor="@color/white"
         android:layout_marginTop="12dp"
-        android:visibility="gone"
         />
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/text_information"
@@ -42,9 +43,14 @@
         android:textColor="@color/gray_second"
         android:fontFamily="@font/montserrat_medium"
         android:textSize="12sp"
-        android:layout_marginTop="8dp"
-        android:visibility="gone"
-        />
+        android:layout_marginTop="8dp" />
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:visibility="gone" />
 
 
 </LinearLayout>

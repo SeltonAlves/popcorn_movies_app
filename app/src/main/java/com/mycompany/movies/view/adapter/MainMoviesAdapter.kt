@@ -54,7 +54,7 @@ class MainMoviesAdapter : RecyclerView.Adapter<FutureMoviesViewHolder>() {
 
             Glide.with(holder.itemView.context).load(glideUrl).apply(requestOptions)
                 .transition(DrawableTransitionOptions.withCrossFade())
-                .into(object : DrawableImageViewTarget(holder.img) {
+                .into(object : DrawableImageViewTarget(holder.returnImg()) {
                     override fun onResourceReady(
                         resource: Drawable,
                         transition: Transition<in Drawable>?

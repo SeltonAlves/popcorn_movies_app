@@ -15,10 +15,10 @@ import com.bumptech.glide.request.target.DrawableImageViewTarget
 import com.bumptech.glide.request.transition.Transition
 import com.mycompany.movies.databinding.RowSearchBinding
 import com.mycompany.movies.model.Result
+import com.mycompany.movies.util.Constraints
 import com.mycompany.movies.view.viewholder.SearchViewHolder
 
 class SearchAdapter : RecyclerView.Adapter<SearchViewHolder>() {
-    private var isLoading: Boolean = true
     private var list = listOf<Result>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SearchViewHolder {
@@ -27,18 +27,15 @@ class SearchAdapter : RecyclerView.Adapter<SearchViewHolder>() {
     }
 
     override fun getItemCount(): Int {
-        return if (isLoading) 5 else list.count()
+        return list.size
     }
 
     override fun onBindViewHolder(
         holder: SearchViewHolder,
         @SuppressLint("RecyclerView") position: Int
     ) {
-        if (isLoading) {
-            holder.bindShimmer()
-        } else {
             val imgUrl =
-                "https://image.tmdb.org/t/p/original" + list[position].poster_path.dropLast(3) + "svg"
+                Constraints.URL_BASE_IMG + list[position].poster_path?.dropLast(3) + "svg"
 
             val requestOptions = RequestOptions().diskCacheStrategy(DiskCacheStrategy.DATA)
 
@@ -52,7 +49,7 @@ class SearchAdapter : RecyclerView.Adapter<SearchViewHolder>() {
 
             Glide.with(holder.itemView.context).load(glideUrl).apply(requestOptions)
                 .transition(DrawableTransitionOptions.withCrossFade())
-                .into(object : DrawableImageViewTarget(holder.img) {
+                .into(object : DrawableImageViewTarget(holder.returnImg()) {
                     override fun onResourceReady(
                         resource: Drawable,
                         transition: Transition<in Drawable>?
@@ -65,22 +62,11 @@ class SearchAdapter : RecyclerView.Adapter<SearchViewHolder>() {
                         )
                     }
                 })
-        }
     }
 
     @SuppressLint("NotifyDataSetChanged")
     fun setItem(result: List<Result>) {
         list = result
-        notifyDataSetChanged()
-    }
-
-    fun startAnimation() {
-        isLoading = true
-        notifyDataSetChanged()
-    }
-
-    fun stopAnimation() {
-        isLoading = false
         notifyDataSetChanged()
     }
 

@@ -14,6 +14,7 @@ import com.bumptech.glide.request.RequestOptions
 import com.bumptech.glide.request.target.DrawableImageViewTarget
 import com.bumptech.glide.request.transition.Transition
 import com.mycompany.movies.databinding.RowItemMoviesPopularBinding
+import com.mycompany.movies.util.Constraints
 import com.mycompany.movies.view.viewholder.MoviesPopularVH
 
 class MoviesPopularAdapter : RecyclerView.Adapter<MoviesPopularVH>() {
@@ -47,7 +48,7 @@ class MoviesPopularAdapter : RecyclerView.Adapter<MoviesPopularVH>() {
             holder.bindShimmer()
         } else {
             val imgSuffix = list[position]
-            val imgUrl = "https://image.tmdb.org/t/p/original" + imgSuffix.dropLast(3) + "svg"
+            val imgUrl = Constraints.URL_BASE_IMG + imgSuffix.dropLast(3) + "svg"
 
             val requestOptions = RequestOptions().diskCacheStrategy(DiskCacheStrategy.DATA)
 
@@ -61,7 +62,7 @@ class MoviesPopularAdapter : RecyclerView.Adapter<MoviesPopularVH>() {
 
             Glide.with(holder.itemView.context).load(glideUrl).apply(requestOptions)
                 .transition(DrawableTransitionOptions.withCrossFade())
-                .into(object : DrawableImageViewTarget(holder.imageMovies) {
+                .into(object : DrawableImageViewTarget(holder.returnImg()) {
                     override fun onResourceReady(
                         resource: Drawable,
                         transition: Transition<in Drawable>?

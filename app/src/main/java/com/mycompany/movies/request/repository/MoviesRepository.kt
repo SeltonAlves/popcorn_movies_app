@@ -101,12 +101,16 @@ class MoviesRepository {
                     }
                     listener.success(list)
                 } else {
-                    listener.failure("erro")
+                    listener.failure("As Buscas pelo conteúdo foram mal sucessidas.")
                 }
             }
 
             override fun onFailure(call: Call<Movies>, t: Throwable) {
-                listener.failure("erro 2")
+                if (t is IOException) {
+                    listener.failure("erro, sem conexão!")
+                } else {
+                    listener.failure("erro estamos verificando, breve estará no ar.")
+                }
             }
 
         })

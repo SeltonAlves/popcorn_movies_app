@@ -2,13 +2,15 @@ package com.mycompany.movies.view.viewholder
 
 import android.graphics.drawable.Drawable
 import android.view.View
+import android.widget.ImageView
+import androidx.appcompat.widget.AppCompatImageView
 import androidx.recyclerview.widget.RecyclerView
 import com.mycompany.movies.databinding.ItemMainMoviesBinding
 
 class FutureMoviesViewHolder(private val binding: ItemMainMoviesBinding) :
     RecyclerView.ViewHolder(binding.root) {
 
-    val img = binding.image
+   private val img = binding.image
 
     fun bind( title: String,img: Drawable?) {
         if (img != null) {
@@ -27,5 +29,8 @@ class FutureMoviesViewHolder(private val binding: ItemMainMoviesBinding) :
         binding.text.text = ""
     }
 
+    fun returnImg (): ImageView {
+        return img
+    }
 
 }
