@@ -1,5 +1,6 @@
 package com.mycompany.movies.view.fragment
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -11,6 +12,8 @@ import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.tabs.TabLayoutMediator
 import com.mycompany.movies.databinding.FragmentHomeBinding
+import com.mycompany.movies.util.OnClickListener
+import com.mycompany.movies.view.activity.DetailsActivity
 import com.mycompany.movies.view.adapter.MoviesPopularAdapter
 import com.mycompany.movies.view.adapter.TabViewPagerAdapter
 import com.mycompany.movies.viewmodel.fragment.HomeFragmentViewModel
@@ -34,6 +37,23 @@ class HomeFragment : Fragment() {
         viewModel.moviesPopular()
         observe()
         setUpTabView()
+        onClick()
+    }
+
+    private fun onClick(){
+        val listener = object : OnClickListener{
+            override fun onClick(code: Int?) {
+                if (code != null){
+                    val bundle = Bundle()
+                    bundle.putInt("code",code)
+                    val intent = Intent(context, DetailsActivity::class.java)
+                    intent.putExtras(bundle)
+                    startActivity(intent)
+                }
+            }
+
+        }
+        adapter.setOnClick(listener)
     }
 
     private fun observe() {

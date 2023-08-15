@@ -1,5 +1,6 @@
 package com.mycompany.movies.request.service
 
+import com.mycompany.movies.model.Details
 import com.mycompany.movies.model.Result
 interface ApiResponse<T> {
 

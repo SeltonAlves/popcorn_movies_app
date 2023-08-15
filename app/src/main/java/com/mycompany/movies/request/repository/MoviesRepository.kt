@@ -3,6 +3,7 @@ package com.mycompany.movies.request.repository
 
 import com.google.gson.Gson
 import com.mycompany.movies.model.DetailedMovies
+import com.mycompany.movies.model.Details
 import com.mycompany.movies.model.ErrorResponse
 import com.mycompany.movies.model.FuturesMovies
 import com.mycompany.movies.model.Movies
@@ -21,19 +22,26 @@ class MoviesRepository {
 
     private val remote = Retrofit.getService(MoviesServices::class.java)
     private lateinit var call: Call<FuturesMovies>
-    fun getMoviesPopular(listener: ApiResponse<List<String>>) {
+    fun getMoviesPopular(listener: ApiResponse<List<Details>>) {
         val call = remote.getPopularMovies()
         call.enqueue(object : Callback<Movies> {
             override fun onResponse(call: Call<Movies>, response: Response<Movies>) {
                 if (response.isSuccessful) {
                     if (response.code() == HttpURLConnection.HTTP_OK) {
+                        val details = mutableListOf<Details>()
                         response.body()?.let { movies ->
-                            val list = mutableListOf<String>()
                             movies.results.map {
-                                list.add(it.poster_path)
+                                details.add(
+                                    Details(
+                                        code = it.id,
+                                        poster = it.poster_path,
+                                        name = null
+                                    )
+                                )
                             }
-                            listener.success(list)
                         }
+                        listener.success(details)
+
                     } else if (response.code() == HttpURLConnection.HTTP_UNAUTHORIZED) {
                         val error = Gson().fromJson(
                             response.errorBody()?.toString(),
@@ -55,21 +63,29 @@ class MoviesRepository {
         })
 
     }
-    fun getInMovies(code: Int, listener: ApiResponse<List<Pair<String, String?>>>) {
+
+    fun getInMovies(code: Int, listener: ApiResponse<List<Details>>) {
         call = if (code == 1) {
             remote.geCurrentlyInMovies()
-        }else{
+        } else {
             remote.getFutureInMovies()
         }
         call.enqueue(object : Callback<FuturesMovies> {
             override fun onResponse(call: Call<FuturesMovies>, response: Response<FuturesMovies>) {
                 if (response.isSuccessful) {
                     if (response.code() == HttpURLConnection.HTTP_OK) {
-                        response.body()?.let {
-                            val list: MutableList<Pair<String, String?>> = mutableListOf()
-                            for (results in it.results) {
-                                list.add(Pair(results.title, results.poster_path))
+                        response.body()?.let { movies ->
+                            val list: MutableList<Details> = mutableListOf()
+                            movies.results.map { result ->
+                                list.add(
+                                    Details(
+                                        name = result.title,
+                                        poster = result.poster_path,
+                                        code = result.id
+                                    )
+                                )
                             }
+
                             listener.success(list)
                         }
                     } else {

@@ -4,6 +4,7 @@ import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import com.mycompany.movies.model.Details
 import com.mycompany.movies.model.Result
 import com.mycompany.movies.request.repository.MoviesRepository
 import com.mycompany.movies.request.service.ApiResponse

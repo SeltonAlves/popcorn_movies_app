@@ -40,5 +40,9 @@ interface MoviesServices {
     ): Call<Movies>
 
     @GET(Constraints.URL_GET_ID_MOVIES)
-    fun getIdMovies(@Path("id") id: Int): Call<DetailedMovies>
+    fun getIdMovies(
+        @Path("id") id: Int,
+        @Header("accept") accept: String = "application/json",
+        @Query("api_key") apiKey: String = Constraints.API_KEY
+    ): Call<DetailedMovies>
 }

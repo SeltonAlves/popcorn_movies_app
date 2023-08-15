@@ -14,17 +14,20 @@ import com.bumptech.glide.request.RequestOptions
 import com.bumptech.glide.request.target.DrawableImageViewTarget
 import com.bumptech.glide.request.transition.Transition
 import com.mycompany.movies.databinding.ItemMainMoviesBinding
+import com.mycompany.movies.model.Details
 import com.mycompany.movies.util.Constraints
-import com.mycompany.movies.view.viewholder.FutureMoviesViewHolder
+import com.mycompany.movies.util.OnClickListener
+import com.mycompany.movies.view.viewholder.MainMoviesViewHolder
 
-class MainMoviesAdapter : RecyclerView.Adapter<FutureMoviesViewHolder>() {
-    private var movies = listOf<Pair<String, String?>>()
+class MainMoviesAdapter : RecyclerView.Adapter<MainMoviesViewHolder>() {
+    private var movies = listOf<Details>()
+    private lateinit var listener: OnClickListener
     private var isLoading = true
 
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FutureMoviesViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MainMoviesViewHolder {
         val item = ItemMainMoviesBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        return FutureMoviesViewHolder(item)
+        return MainMoviesViewHolder(item,listener)
     }
 
     override fun getItemCount(): Int {
@@ -33,14 +36,14 @@ class MainMoviesAdapter : RecyclerView.Adapter<FutureMoviesViewHolder>() {
 
 
     override fun onBindViewHolder(
-        holder: FutureMoviesViewHolder,
+        holder: MainMoviesViewHolder,
         @SuppressLint("RecyclerView") position: Int
     ) {
         if (isLoading) {
             holder.bindShimmer()
         } else {
             val imgUrl =
-                Constraints.URL_BASE_IMG + movies[position].second?.dropLast(3) + "svg"
+                Constraints.URL_BASE_IMG + movies[position].poster?.dropLast(3) + "svg"
 
             val requestOptions = RequestOptions().diskCacheStrategy(DiskCacheStrategy.DATA)
 
@@ -59,7 +62,11 @@ class MainMoviesAdapter : RecyclerView.Adapter<FutureMoviesViewHolder>() {
                         resource: Drawable,
                         transition: Transition<in Drawable>?
                     ) {
-                            holder.bind(movies[position].first,resource)
+                        holder.bind(
+                            title = movies[position].name,
+                            img = resource,
+                            code = movies[position].code
+                        )
                     }
                 })
         }
@@ -68,7 +75,7 @@ class MainMoviesAdapter : RecyclerView.Adapter<FutureMoviesViewHolder>() {
     }
 
     @SuppressLint("NotifyDataSetChanged")
-    fun setItem(list: List<Pair<String, String?>>) {
+    fun setItem(list: List<Details>) {
         isLoading = list.isEmpty()
         movies = list
         notifyDataSetChanged()
@@ -86,5 +93,9 @@ class MainMoviesAdapter : RecyclerView.Adapter<FutureMoviesViewHolder>() {
         isLoading = true
         notifyDataSetChanged()
 
+    }
+
+    fun setOnClick(listener: OnClickListener) {
+        this.listener = listener
     }
 }

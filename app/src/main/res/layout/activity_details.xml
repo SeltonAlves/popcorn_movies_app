@@ -42,21 +42,31 @@
         </RelativeLayout>
     </androidx.appcompat.widget.Toolbar>
 
-    <com.rishabhharit.roundedimageview.RoundedImageView
-        android:id="@+id/image_background"
+    <com.facebook.shimmer.ShimmerFrameLayout
+        android:id="@+id/shimmer_layout_backdrop"
         android:layout_width="match_parent"
         android:layout_height="211dp"
         android:layout_below="@id/toolbar2"
-        app:reverseMask="true"
-        app:cornerRadius="18dp"
-        app:roundedCorners="bottomLeft|bottomRight"
-        android:background="@drawable/ic_launcher_background"
-        />
+        android:translationZ="100dp"
+        app:shimmer_duration="200"
+        app:shimmer_repeat_delay="1000"
+        app:shimmer_repeat_mode="reverse">
+
+        <com.makeramen.roundedimageview.RoundedImageView
+            android:id="@+id/image_background"
+            android:layout_width="match_parent"
+            android:layout_height="211dp"
+            android:scaleType="centerCrop"
+            android:background="@color/gray_second"
+            app:riv_corner_radius_bottom_left="16dp"
+            app:riv_corner_radius_bottom_right="16dp" />
+    </com.facebook.shimmer.ShimmerFrameLayout>
+
 
     <androidx.cardview.widget.CardView
         android:layout_width="54dp"
         android:layout_height="24dp"
-        android:layout_alignBottom="@id/image_background"
+        android:layout_alignBottom="@id/shimmer_layout_backdrop"
         android:layout_alignParentEnd="true"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
@@ -79,38 +89,48 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_marginStart="8dp"
+                android:layout_marginStart="6dp"
                 android:fontFamily="@font/montserrat_semibold"
                 android:textColor="@color/yellow"
                 android:textSize="12sp" />
         </LinearLayout>
     </androidx.cardview.widget.CardView>
 
-    <androidx.cardview.widget.CardView
-        android:id="@+id/image_poster"
+    <com.facebook.shimmer.ShimmerFrameLayout
+        android:id="@+id/shimmer_layout_image_poster"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/toolbar2"
-        android:layout_marginStart="29dp"
-        android:layout_marginTop="150dp"
-        app:cardCornerRadius="16dp">
+        android:layout_alignBottom="@id/shimmer_layout_backdrop"
+        android:layout_marginStart="20dp"
+        android:layout_marginBottom="-50dp"
+        app:shimmer_auto_start="true"
+        app:shimmer_duration="400"
+        app:shimmer_repeat_delay="1000"
+        app:shimmer_repeat_mode="reverse"
+        android:translationZ="100dp">
 
-        <androidx.appcompat.widget.AppCompatImageView
-            android:layout_width="90dp"
-            android:layout_height="120dp"
-            android:translationZ="100dp" />
+        <com.makeramen.roundedimageview.RoundedImageView
+            android:id="@+id/image_poster"
+            android:layout_width="100dp"
+            android:layout_height="122dp"
+            app:riv_corner_radius="16dp"
+            android:background="@color/gray_second"
+            />
 
-    </androidx.cardview.widget.CardView>
+
+    </com.facebook.shimmer.ShimmerFrameLayout>
+
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/text_name_movies"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/image_background"
+        android:layout_below="@id/shimmer_layout_backdrop"
         android:layout_alignParentEnd="true"
-        android:text="dfs"
-        android:paddingStart="16dp"
-        android:layout_toEndOf="@id/image_poster"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="10dp"
+        android:text="carregando..."
+        android:layout_toEndOf="@id/shimmer_layout_image_poster"
         android:fontFamily="@font/poppins_semibold"
         android:textAlignment="textStart"
         android:textColor="@color/white"
@@ -119,14 +139,15 @@
 
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/tabLayout"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/image_poster"
-        android:layout_marginTop="40dp"
+        android:layout_below="@id/shimmer_layout_image_poster"
+        android:layout_marginTop="56dp"
         android:background="@color/gray_main"
         app:tabIndicatorColor="@color/edit_search"
         app:tabIndicatorFullWidth="false"
         app:tabIndicatorHeight="3dp"
+        android:textAlignment="textStart"
         app:tabMode="auto"
         app:tabSelectedTextColor="@color/white"
         app:tabTextColor="@color/white"

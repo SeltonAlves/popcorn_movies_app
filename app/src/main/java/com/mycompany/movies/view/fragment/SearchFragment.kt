@@ -53,10 +53,11 @@ class SearchFragment : Fragment() {
         val listener = object : OnClickListener {
             override fun onClick(code: Int?) {
                 if (code != null) {
-                    val intent = Intent(context, DetailsActivity::class.java)
                     val bundle = Bundle()
-                    bundle.putInt(Constraints.KEY_CODE_MOVIES, code)
-                    startActivity(intent, bundle)
+                    bundle.putInt("code",code)
+                    val intent = Intent(context,DetailsActivity::class.java)
+                    intent.putExtras(bundle)
+                    startActivity(intent)
                 }
             }
         }

@@ -14,22 +14,24 @@ import com.bumptech.glide.request.RequestOptions
 import com.bumptech.glide.request.target.DrawableImageViewTarget
 import com.bumptech.glide.request.transition.Transition
 import com.mycompany.movies.databinding.RowItemMoviesPopularBinding
+import com.mycompany.movies.model.Details
 import com.mycompany.movies.util.Constraints
-import com.mycompany.movies.view.viewholder.MoviesPopularVH
+import com.mycompany.movies.util.OnClickListener
+import com.mycompany.movies.view.viewholder.MoviesPopularViewHolder
 
-class MoviesPopularAdapter : RecyclerView.Adapter<MoviesPopularVH>() {
-    private var list = listOf<String>()
+class MoviesPopularAdapter : RecyclerView.Adapter<MoviesPopularViewHolder>() {
+    private var list = listOf<Details>()
     private var showShimmer = true
-
+    private lateinit var listener: OnClickListener
 
     private companion object {
         private const val SHIMMER_ITEM_COUNT = 10
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MoviesPopularVH {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MoviesPopularViewHolder {
         val item =
             RowItemMoviesPopularBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        return MoviesPopularVH(item)
+        return MoviesPopularViewHolder(item,listener)
     }
 
     override fun getItemCount(): Int {
@@ -41,14 +43,14 @@ class MoviesPopularAdapter : RecyclerView.Adapter<MoviesPopularVH>() {
     }
 
     override fun onBindViewHolder(
-        holder: MoviesPopularVH,
+        holder: MoviesPopularViewHolder,
         @SuppressLint("RecyclerView") position: Int
     ) {
         if (showShimmer) {
             holder.bindShimmer()
         } else {
             val imgSuffix = list[position]
-            val imgUrl = Constraints.URL_BASE_IMG + imgSuffix.dropLast(3) + "svg"
+            val imgUrl = Constraints.URL_BASE_IMG + imgSuffix.poster.dropLast(3) + "svg"
 
             val requestOptions = RequestOptions().diskCacheStrategy(DiskCacheStrategy.DATA)
 
@@ -67,7 +69,7 @@ class MoviesPopularAdapter : RecyclerView.Adapter<MoviesPopularVH>() {
                         resource: Drawable,
                         transition: Transition<in Drawable>?
                     ) {
-                        holder.bind(resource, position + 1)
+                        holder.bind(resource, position + 1, list[position].code)
 
                     }
                 })
@@ -75,7 +77,7 @@ class MoviesPopularAdapter : RecyclerView.Adapter<MoviesPopularVH>() {
     }
 
     @SuppressLint("NotifyDataSetChanged")
-    fun setItem(item: List<String>) {
+    fun setItem(item: List<Details>) {
         showShimmer = false
         list = item
         notifyDataSetChanged()
@@ -91,6 +93,10 @@ class MoviesPopularAdapter : RecyclerView.Adapter<MoviesPopularVH>() {
     fun stopShimmerAnimation() {
         showShimmer = false
         notifyDataSetChanged()
+    }
+
+    fun setOnClick(event: OnClickListener){
+        listener = event
     }
 }
 

@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/shimmer_layout"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@color/gray_main"
@@ -47,9 +46,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignTop="@id/image_star"
+        android:layout_alignBottom="@id/image_star"
         android:layout_marginStart="6dp"
+        android:fontFamily="@font/poppins"
         android:layout_toEndOf="@id/image_star"
-        android:fontFamily="@font/montserrat_semibold"
         android:textColor="@color/yellow"
         android:textSize="12sp" />
 
@@ -61,16 +61,17 @@
             android:layout_alignStart="@id/image_star"
             android:layout_marginTop="6dp"
             android:src="@drawable/calendarblank"
-            android:translationZ="900dp"/>
+/>
 
             <TextView
                 android:id="@+id/text_calendar"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/montserrat_semibold"
+                android:fontFamily="@font/poppins"
                 android:textSize="12sp"
                 android:layout_alignStart="@id/text_start"
                 android:layout_alignTop="@id/image_calendar"
+                android:layout_alignBottom="@id/image_calendar"
                 tools:ignore="TextSizeCheck"
                 android:textColor="@color/white"/>
     </RelativeLayout>
